@@ -1,0 +1,27 @@
+pipeline:
+
+  docker:
+    image: plugins/docker
+    storage_driver: vfs
+    repo: omelhoro1/russtress
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: master
+
+  deploy:
+    image: drillster/drone-rsync
+    user: captain
+    hosts: [ "software-unchained" ]
+    port: 22
+    target: /tmp/russtress-${DRONE_COMMIT}/
+    include:
+      - "docker-compose.yml"
+    exclude:
+      - "**.*"
+    delete: false
+    secrets: [ rsync_key ]
+    script:
+      - docker-compose -f /tmp/russtress-${DRONE_COMMIT}/docker-compose.yml pull
+      - docker-compose -f /tmp/russtress-${DRONE_COMMIT}/docker-compose.yml -p russtress up -d
+    when:
+      branch: master

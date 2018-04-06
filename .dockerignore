@@ -1,0 +1,12 @@
+.git/
+
+backend/.idea/
+backend/classifiers/
+
+backend/corp_data/
+backend/corp_tools/
+backend/evaluation/
+backend/*.pyc
+
+frontend/out/
+frontend/target/
