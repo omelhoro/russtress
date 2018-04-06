@@ -11,7 +11,7 @@ pipeline:
   deploy:
     image: drillster/drone-rsync
     user: captain
-    hosts: [ "software-unchained" ]
+    hosts: [ "software-unchained.com" ]
     port: 22
     target: /tmp/russtress-${DRONE_COMMIT}/
     include:
