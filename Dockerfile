@@ -12,3 +12,4 @@ RUN pip install --upgrade pip
 RUN pip install -r ./requirements.txt
 COPY --from=frontend-builder /app/resources/public ./static
 CMD python webapi_blue.py;
+EXPOSE 5001
