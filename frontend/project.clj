@@ -4,27 +4,26 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [ring-server "0.4.0"]
-                 [reagent "0.5.1"]
-                 [cljs-ajax "0.5.0"]
-                 [reagent-forms "0.5.12"]
-                 [reagent-utils "0.1.5"]
-                 [ring "1.4.0"]
-                 [ring/ring-defaults "0.1.5"]
-                 [prone "0.8.2"]
-                 [compojure "1.4.0"]
+  :dependencies [[org.clojure/clojure "1.9.0"]
+                 [ring-server "0.5.0"]
+                 [reagent "0.8.2-SNAPSHOT"]
+                 [cljs-ajax "0.7.5"]
+                 [reagent-forms "0.5.43"]
+                 [reagent-utils "0.3.1"]
+                 [ring "1.7.0"]
+                 [ring/ring-defaults "0.3.2"]
+                 [prone "1.6.1"]
+                 [compojure "1.6.1"]
                  [hiccup "1.0.5"]
-                 [environ "1.0.1"]
-                 [org.clojure/clojurescript "1.7.145" :scope "provided"]
+                 [environ "1.0.2"]
+                 [org.clojure/clojurescript "1.10.339" :scope "provided"]
                  [secretary "1.2.3"]
-
                  ]
 
   :plugins [[lein-environ "1.0.1"]
             [lein-asset-minifier "0.2.2"]
-            [lein-figwheel "0.4.1"]
             [lein-cljsbuild "1.1.0"]
+            [lein-ancient "0.6.15"]
             [com.cemerick/clojurescript.test "0.3.3"]
             ]
 
@@ -38,8 +37,6 @@
   :clean-targets ^{:protect false} [:target-path
                                     [:cljsbuild :builds :app :compiler :output-dir]
                                     [:cljsbuild :builds :app :compiler :output-to]]
-
-  :source-paths ["src/clj" "src/cljc"]
 
   :minify-assets
   {:assets
@@ -55,12 +52,14 @@
 
   :profiles {:dev {:repl-options {:init-ns russtress.repl}
 
-                   :dependencies [[ring/ring-mock "0.3.0"]
-                                  [ring/ring-devel "1.4.0"]
-                                  [lein-figwheel "0.4.1"]
-                                  [org.clojure/tools.nrepl "0.2.11"]
-                                  [com.cemerick/piggieback "0.1.5"]
-                                  [pjstadig/humane-test-output "0.7.0"]]
+                   :dependencies [[ring/ring-mock "0.3.2"]
+                                  [ring/ring-devel "1.7.0"]
+                                  [org.clojure/tools.nrepl "0.2.13"]
+                                  [com.cemerick/piggieback "0.2.2"]
+                                  [pjstadig/humane-test-output "0.8.3"]]
+                  :plugins [
+                    [lein-figwheel "0.5.16"]
+                  ]
 
                    :source-paths ["env/dev/clj", "env/dev/cljs"]
 
@@ -77,7 +76,7 @@
 
                    :env {:dev true}
 
-                   :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs" "src/cljs" "src/cljc"]
+                   :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs" "src/cljs"]
                                               :compiler {:main "russtress.dev"
                                                          :source-map true}}
                                         :test {:source-paths ["env/dev/cljs"  "src/cljs" "src/cljc" "test/cljs"]
@@ -99,7 +98,7 @@
                        :omit-source true
                        :cljsbuild {:jar true
                                    :builds {:app
-                                             {:source-paths ["env/prod/cljs" "src/cljs" "src/cljc"]
+                                             {:source-paths ["env/prod/cljs" "src/cljs"]
                                               :compiler
                                               {:optimizations :advanced
                                                :pretty-print false}}
