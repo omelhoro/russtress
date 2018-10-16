@@ -1,11 +1,12 @@
-FROM clojure as frontend-builder
+FROM clojure:lein-alpine AS frontend-builder
+
 WORKDIR /app
 COPY ./frontend/project.clj /app
 RUN lein deps
 COPY ./frontend /app
 RUN lein uberjar
 
-FROM python as backend-builder
+FROM python:alpine as backend-builder
 WORKDIR /app
 COPY ./backend /app
 RUN pip install --upgrade pip
