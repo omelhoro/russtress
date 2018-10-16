@@ -76,14 +76,15 @@
 
 (defn app-body []
   [:div#app-body
-   [:textarea.form-control {:value @text :on-change (fn [evt] (do (swap! text #(-> evt .-target .-value)))) :style textarea-style}]
-
+   [:textarea.form-control
+    {:value @text :rows 10 :on-change (fn [evt] (do (swap! text #(-> evt .-target .-value))))}
+  ]
    [:div
     {:style {:margin "10px auto" :display "table"}}
     [:button.btn-lg.btn-success {:on-click process-text} "Process"]
    ]
 
-   [:textarea.form-control {:value @text-done :style textarea-style}]
+   [:pre {:style {:white-space "pre-wrap" :min-height "30px"}} (or @text-done "No text processed")]
    [:div.well
     {:style {:margin-top "5px"}}
     [:span {:style {:font-size "large"}} [:a {:href "https://home.fischerops.com"} "See more apps from me"]]
@@ -96,7 +97,6 @@
    [:div.jumbotron {:style {:text-align "center"}}
     [:h1 "Russtress"]
     [:h3 "Welcome to the automatic stress setter of Russian. It has 95% correctness. Just type in a text and click 'Process'"
-     [:br ""]
      ]
     ]
    (app-body)
