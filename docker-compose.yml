@@ -1,12 +1,12 @@
-version: '2'
+version: "2"
 services:
-
   russtress:
     image: omelhoro1/russtress
     container_name: russtress
     restart: unless-stopped
     labels:
-      - "traefik.frontend.rule=Host:russtress.software-unchained.com,russtress.fischerops.com"
+      - traefik.frontend.rule=Host:russtress.software-unchained.com,russtress.fischerops.com
+      - traefik.enable=true
     networks:
       - proxy-tier
 
